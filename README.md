@@ -1,2 +1,4 @@
 # rpi-learnpath-block
- Wordpress Block Lernpfad
+ Wordpress Plugin: Gutenberg Block Lernpfad
+
+requires: lazy-block
