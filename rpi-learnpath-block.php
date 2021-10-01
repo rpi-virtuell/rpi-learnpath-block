@@ -162,7 +162,7 @@ Class RPI_Learnpath{
 						'hide_if_not_selected' => 'false',
 						'save_in_meta' => 'false',
 						'save_in_meta_name' => '',
-						'required' => 'true',
+						'required' => 'false',
 						'placeholder' => 'Name der Lernstation',
 						'characters_limit' => '',
 					),
