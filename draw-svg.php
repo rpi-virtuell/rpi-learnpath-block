@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 
 class learnpath{
 
-    public $id = 'lernweg';
+    public $id = 'learnpath';
     public $data;
     public $saved_data;
     public $config;
@@ -55,22 +55,21 @@ class learnpath{
 		$this->config['bg_color'] = isset($attributes['bg_color']) ? $attributes['bg_color'] : 'transparent';
 
 
-		$this->id = sanitize_title($this->config['title']);
 		$this->r = $this->config['radius'];
 		$this->background_img = $this->config['svgbackground'];
 		$this->bg_color = $this->config['bg_color'];
 
 
 
-		$key = 'learnpath_'.$this->id;
+		$key = $this->id.'_';
 
 
 		if($edit){
 
 			$this->saved_config = get_post_meta(get_the_ID(),$key.'_config',true);
 			if($this->saved_config){
-				$this->saved_data = get_post_meta(get_the_ID(),$key,true);
-			    $this->saved_slugs = $this->saved_config['ordered_slugs'];
+
+				$this->saved_slugs = $this->saved_config['ordered_slugs'];
 				if($this->saved_config['r'] != $this->r){
 					$this->need_recalc = true;
 				}else{
@@ -81,13 +80,18 @@ class learnpath{
 			}else{
 				$this->need_recalc = true;
             }
+			$this->saved_data = get_post_meta(get_the_ID(),$key,true);
+			if($this->saved_data[0]["cx"]<1){
+				$this->need_recalc = true;
+            }
+
 			if($this->need_recalc){
 				$this->bg_left = rand(10,1000);
 				$this->bg_top = rand(10,1300);
             }
 
 			$this->data = $this->map_data($resources);
-		    $this->save_config($key);
+		    $this->save_config($key,$this->data);
 
         }else{
 			$this->load_config($key);
@@ -193,7 +197,7 @@ class learnpath{
 	    $this->ordered_slugs[]=$slug;
 		$vh =0;
 
-	    if($this->saved_slugs == $this->ordered_slugs){
+		if($this->saved_slugs == $this->ordered_slugs){
 
 		    for ( $i = 0; $i < count( $data ); $i ++ ) {
 		        $data[$i]['cx'] = $this->saved_data[$i]['cx'];
@@ -207,6 +211,8 @@ class learnpath{
             }
 		    $this->vh = $vh+$r+$this->info_box_offset+10;
 
+        }else{
+			$this->need_recalc = true;
         }
 		if( $this->need_recalc){
 			return $this->calc_circle_points($data);
@@ -300,8 +306,11 @@ class learnpath{
 	   return sanitize_title($title);
     }
 	function get_random_slug(){
+
 	    $n = count($this->saved_slugs);
-	    if($n>2){
+
+
+		if($n>0){
 	        return $this->saved_slugs[($n - 1)];
         }
 
@@ -456,7 +465,6 @@ class learnpath{
 	    $this->draw_gPoints($edit);
 	    echo '</svg>';
 
-
     }
 
     function draw_infobox(){
@@ -476,6 +484,7 @@ class learnpath{
                 top: -100000px;
                 min-height: 150px;
                 display: none;
+                z-index: 1;
             }
             .lp-infobox-inner{
                 font-size: 1.0rem;

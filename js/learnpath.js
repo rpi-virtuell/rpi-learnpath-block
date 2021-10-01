@@ -97,7 +97,7 @@ const learnpath = {
                 infobox.style.display = "block";
                 let box_width = infobox.offsetWidth;
 
-                document.querySelector('.lp-infobox').style.top = (document.getElementById(slug).getBBox().y + document.getElementById('die-spur-fuehrt-nach').getBBox().height) + 'px';
+                document.querySelector('.lp-infobox').style.top = (document.getElementById(slug).getBBox().y + document.getElementById(slug).getBBox().height) + 'px';
                 document.getElementById('quest_'+learnpath.id).innerHTML = node.description;
                 document.getElementById('quest_title_'+learnpath.id).innerHTML = node.title;
 
@@ -112,7 +112,7 @@ const learnpath = {
                 let circle = gpoint.getBBox();
 
                 //berechne die position des Elements in relation zur relativen höhe in der SVG
-                let realw = Math.floor(document.getElementById('reformation').parentElement.offsetWidth);
+                let realw = Math.floor(document.getElementById(learnpath.id).parentElement.offsetWidth);
 
 
                 if (realw < box_width) {
@@ -121,7 +121,7 @@ const learnpath = {
 
                 }
 
-                let svg_left = Math.floor(document.getElementById('reformation').parentElement.offsetLeft);
+                let svg_left = Math.floor(document.getElementById(learnpath.id).parentElement.offsetLeft);
                 let svg_right = svg_left + realw;
 
 

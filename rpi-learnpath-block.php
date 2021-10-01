@@ -109,22 +109,7 @@ Class RPI_Learnpath{
 					),
 				),
 				'controls' => array(
-					'control_46894540da' => array(
-						'type' => 'text',
-						'name' => 'title',
-						'default' => '',
-						'label' => 'Titel',
-						'help' => '',
-						'child_of' => '',
-						'placement' => 'inspector',
-						'width' => '100',
-						'hide_if_not_selected' => 'false',
-						'save_in_meta' => 'false',
-						'save_in_meta_name' => '',
-						'required' => 'false',
-						'placeholder' => '',
-						'characters_limit' => '',
-					),
+
 					'control_c6da8a4c35' => array(
 						'type' => 'repeater',
 						'name' => 'resources',
