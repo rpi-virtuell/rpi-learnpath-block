@@ -323,7 +323,7 @@ Class RPI_Learnpath{
 require_once LZB_PATH . 'lazy-blocks.php';
 
 add_action('init',array('RPI_Learnpath','init'));
-function admin_style() {
+
+add_action('admin_enqueue_scripts',function () {
 	wp_enqueue_style('admin-styles', plugin_dir_url(__FILE__) .  'css/admin.css');
-}
-add_action('admin_enqueue_scripts', 'admin_style');
+});
